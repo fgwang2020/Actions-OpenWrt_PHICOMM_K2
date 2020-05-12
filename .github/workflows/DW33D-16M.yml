@@ -2,7 +2,7 @@
 # Description: Build OpenWrt using GitHub Actions
 # Lisence: MIT
 # Author: P3TERX
-# Blog: https://p3terx.com for k2
+# Blog: https://p3terx.com for DW33D
 #=================================================
 
 name: Build OpenWrt 16M
@@ -72,8 +72,8 @@ jobs:
     - name: add 16M config
       run: |
            cd openwrt
-           wget -P ./target/linux/ramips/image https://github.com/Carrjiang/Actions-OpenWrt_PHICOMM_K2/raw/master/mt7620.mk -O mt7620.mk
-           wget -P ./target/linux/ramips/dts https://github.com/Carrjiang/Actions-OpenWrt_PHICOMM_K2/raw/master/mt7620a_phicomm_psg1218.dtsi -O mt7620a_phicomm_psg1218.dtsi
+           wget -P ./target/linux/ramips/image https://github.com/Carrjiang/Actions-OpenWrt_DOMIWIFI/raw/master/ar71XX.mk -O ar71xx.mk
+           wget -P ./target/linux/ramips/dts https://github.com/Carrjiang/Actions-OpenWrt_DOMIWIFI/raw/master/ar71xx_DW33D_DOMIWIFI.dtsi -O ar71xx_DW33D_DOMIWIFI.dtsi
            
     - name: Update feeds
       run: cd openwrt && ./scripts/feeds update -a
@@ -118,8 +118,8 @@ jobs:
         # 编译phicomm k2固件:
         cat >> .config <<EOF
         CONFIG_TARGET_ramips=y
-        CONFIG_TARGET_ramips_mt7620=y
-        CONFIG_TARGET_ramips_mt7620_DEVICE_phicomm_psg1218a=y
+        CONFIG_TARGET_ramips_ar71xx=y
+        CONFIG_TARGET_ramips_ar71xx_DEVICE_DW33D_DOMIWIFI=y
         # CONFIG_TARGET_x86 is not set
         # CONFIG_TARGET_x86_64 is not set
         # CONFIG_TARGET_x86_64_Generic is not set
@@ -273,17 +273,17 @@ jobs:
         # CONFIG_PACKAGE_luci-app-sqm is not set
         # CONFIG_PACKAGE_luci-app-squid is not set
         # CONFIG_PACKAGE_luci-app-ssr-libev-server is not set
-        # CONFIG_PACKAGE_luci-app-ssr-plus=y
-        # CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_Shadowsocks=y
-        # CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_V2ray is not set
-        # CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_Trojan is not set
+         CONFIG_PACKAGE_luci-app-ssr-plus=y
+         CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_Shadowsocks=y
+         CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_V2ray=y
+         CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_Trojan=y
         # CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_Kcptun is not set
         # CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_ShadowsocksR_Server is not set
-        # CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_ShadowsocksR_Socks=y
+         CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_ShadowsocksR_Socks=y
         # CONFIG_PACKAGE_luci-app-ssr-python-pro-server is not set
         # CONFIG_PACKAGE_luci-app-ssrserver-python is not set
         # CONFIG_PACKAGE_luci-app-statistics is not set
-        # CONFIG_PACKAGE_luci-app-syncdial=y
+         CONFIG_PACKAGE_luci-app-syncdial=y
         # CONFIG_PACKAGE_luci-app-syncthing is not set
         # CONFIG_PACKAGE_luci-app-tinyproxy is not set
         # CONFIG_PACKAGE_luci-app-transmission is not set
@@ -294,7 +294,7 @@ jobs:
         # CONFIG_PACKAGE_luci-app-uhttpd is not set
         # CONFIG_PACKAGE_luci-app-unblockmusic is not set
         # CONFIG_PACKAGE_luci-app-unbound is not set
-        # CONFIG_PACKAGE_luci-app-upnp=y
+         CONFIG_PACKAGE_luci-app-upnp=y
         # CONFIG_PACKAGE_luci-app-usb-printer is not set
         # CONFIG_PACKAGE_luci-app-v2ray-server is not set
         # CONFIG_PACKAGE_luci-app-verysync is not set
@@ -360,5 +360,5 @@ jobs:
     - name: Upload artifact
       uses: actions/upload-artifact@master
       with:
-        name: OpenWrt phicomm k2
+        name: OpenWrt DW33D domiwifi
         path: ./openwrt/artifact/
